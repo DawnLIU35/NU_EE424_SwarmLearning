@@ -61,7 +61,7 @@ then
    echo "Example $example is not part of quick start."
    help
 fi
-[ -z "$nodes" ] && nodes=2
+[ -z "$nodes" ] && nodes=2      # if [ x ] ; then y ; else z ; fi
 [ -z "$parent_dir" ] && parent_dir="."
 [ -z "$apls_ip" ] && apls_ip=`hostname -I | awk '{print $1}'`
 
