@@ -1,0 +1,7 @@
+./mnist-keras/bin/init-workspace -e mnist-keras -i 172.18.72.25 -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples
+
+../swarm-learning/bin/run-sl --name node1-sl --network mnist-keras-net --host-ip node1-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.18.72.25 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples/ws-mnist-keras/node1/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples/ws-mnist-keras/node1/model --model-program mnist_tf.py --sl-platform TF
+
+../swarm-learning/bin/run-sl --name node2-sl --network mnist-keras-net --host-ip node2-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.18.72.25 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples/ws-mnist-keras/node2/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples/ws-mnist-keras/node2/model --model-program mnist_tf.py --sl-platform TF
+
+sudo ./mnist-keras/bin/del-workspace -e mnist-keras -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/swarm-learning/examples
