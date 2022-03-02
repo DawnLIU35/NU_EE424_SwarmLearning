@@ -56,11 +56,11 @@ then
    echo "Some or all of the parameters are empty";
    help
 fi
-if [ "$example" != "mnist-keras" ] && [ "$example" != "mnist-pytorch" ] && [ "$example" != "fraud-detection-keras" ]
-then
-   echo "Example $example is not part of quick start."
-   help
-fi
+# if [ "$example" != "mnist-keras" ] && [ "$example" != "mnist-pytorch" ] && [ "$example" != "fraud-detection-keras" ]
+# then
+#    echo "Example $example is not part of quick start."
+#    help
+# fi
 [ -z "$nodes" ] && nodes=2      # if [ x ] ; then y ; else z ; fi
 [ -z "$parent_dir" ] && parent_dir="."
 [ -z "$apls_ip" ] && apls_ip=`hostname -I | awk '{print $1}'`
@@ -83,7 +83,9 @@ mkdir "$ws_dir"
 for index in $(seq 1 $nodes); do
    node_dir="$ws_dir/node$index"
    mkdir "$node_dir";
+   echo "node$index copying data..."
    cp -r "$examples_dir/$example/app-data" "$node_dir/app-data"
+   # echo "node$index copy data finish"
    cp -r "$examples_dir/$example/model" "$node_dir/model"
    echo "$node_dir directory is created and updated."
 done

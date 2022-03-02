@@ -53,11 +53,11 @@ then
    echo "Some or all of the parameters are empty";
    help
 fi
-if [ "$example" != "mnist-keras" ] && [ "$example" != "mnist-pytorch" ] && [ "$example" != "fraud-detection-keras" ]
-then
-   echo "Example $example is not part of quick start."
-   help
-fi
+# if [ "$example" != "mnist-keras" ] && [ "$example" != "mnist-pytorch" ] && [ "$example" != "fraud-detection-keras" ]
+# then
+#    echo "Example $example is not part of quick start."
+#    help
+# fi
 [ -z "$parent_dir" ] && parent_dir="."
 
 # Finalize and assign values
