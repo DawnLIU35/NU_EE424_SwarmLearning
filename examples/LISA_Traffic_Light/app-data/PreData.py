@@ -96,25 +96,6 @@ class TrafficLightsDataset:
             
         return image, motion_labels #, target, image_id
 
-def getTrainTransform():
-    return A.Compose([
-        A.Resize(height=256, width=256, p=1),
-        # A.Flip(0.5),
-        ToTensorV2(p=1.0)
-    ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
-
-def getValTransform():
-    return A.Compose([
-        A.Resize(height=256, width=256, p=1),
-        ToTensorV2(p=1.0)
-    ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
-
-def getTestTransform():
-    return A.Compose([
-        A.Resize(height=256, width=256, p=1),
-        ToTensorV2(p=1.0)
-    ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
-
 
 def GetDataset(args):
     EPOCHS = args.epochs
@@ -123,6 +104,8 @@ def GetDataset(args):
     DATA_PATH = args.parent_path
     DAY_TRAIN_PATH = args.annotation_path
     np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+
     # NIGHT_TRAIN_PATH = './RawData/Annotations/nightTrain/'
     train_day = []
     for clipName in tqdm(sorted(os.listdir(DAY_TRAIN_PATH))):
@@ -164,6 +147,25 @@ def GetDataset(args):
 
     train_df, test_df = split(df)
     train_df, val_df = split(train_df)
+
+    def getTrainTransform():
+        return A.Compose([
+            A.Resize(height=args.pixel, width=args.pixel, p=1),
+            # A.Flip(0.5),
+            ToTensorV2(p=1.0)
+        ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
+
+    def getValTransform():
+        return A.Compose([
+            A.Resize(height=args.pixel, width=args.pixel, p=1),
+            ToTensorV2(p=1.0)
+        ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
+
+    def getTestTransform():
+        return A.Compose([
+            A.Resize(height=args.pixel, width=args.pixel, p=1),
+            ToTensorV2(p=1.0)
+        ], bbox_params={'format': 'pascal_voc', 'label_fields': ['labels']})
 
     trainDataset = TrafficLightsDataset(train_df,getTrainTransform())
     valDataset = TrafficLightsDataset(val_df,getValTransform())
