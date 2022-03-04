@@ -14,6 +14,7 @@
 ############################################################################
 
 import datetime
+import timeit
 import numpy as np
 import os
 from swarm import SwarmCallback
@@ -31,7 +32,7 @@ trainPrint = True
 # tell swarm after how many batches
 # should it Sync. We are not doing 
 # adaptiveRV here, its a simple and quick demo run
-swSyncInterval = 128 
+swSyncInterval = 32 
 
 class mnistNet(nn.Module):
     def __init__(self):
@@ -125,11 +126,13 @@ def main():
                                   min_peers=min_peers,
                                   val_data=testDs,
                                   val_batch_size=batchSz,
+                                  checkin_model_on_train_end = 'active',
                                   model_name=model_name,
                                   model=model)
     # initalize swarmCallback and do first sync 
     swarmCallback.on_train_begin()
-        
+
+    start = timeit.default_timer()   
     for epoch in range(1, max_epochs + 1):
         doTrainBatch(model,device,trainLoader,opt,epoch,swarmCallback)      
         test(model,device,testLoader)
@@ -137,6 +140,9 @@ def main():
 
     # handles what to do when training ends        
     swarmCallback.on_train_end()
+
+    stop = timeit.default_timer()
+    print('Training Used Time: ', stop - start) 
 
     # Save model and weights
     model_path = os.path.join(modelDir, model_name, 'saved_model.pt')
