@@ -1,5 +1,23 @@
 ## mnist-pytorch
 
+# Run: Change IP address 
+
+./mnist-pytorch/bin/init-workspace -e mnist-pytorch -i 172.24.176.48 -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
+
+../swarm-learning/bin/run-sl --name node1-sl --network mnist-pytorch-net --host-ip node1-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.24.176.48 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
+
+../swarm-learning/bin/run-sl --name node2-sl --network mnist-pytorch-net --host-ip node2-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.28.217.165 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
+
+sudo ./mnist-pytorch/bin/del-workspace -e mnist-pytorch -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
+
+# Experiments
+
+1. Change swSyncInterval using balance dataset.
+2. Explore imbalance dataset of each nodes using SplitData.ipynb. Assign different weights to each node.
+To create different dataset, change the parameters in SplitData.ipynb, and then run this notebook after running init-workspace.
+
+# Original readme
+
 This example runs decentralized training on MNIST *[[1]](README.md#References)* dataset for digit classification using PyTorch based Swarm Learning framework.
 
 The code for this example has been taken from *[[2]](README.md#References)* and modified to run on a Swarm Learning platform. The data files are in the ``swarm-learning/examples/mnist-pytorch/app-data/`` directory. The model program, after conversion to Swarm Learning, is in ``swarm-learning/examples/mnist-pytorch/model/`` and is called ``mnist_pyt.py``. 

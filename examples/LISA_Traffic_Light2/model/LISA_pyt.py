@@ -309,11 +309,11 @@ def main():
     testLoader = torch.utils.data.DataLoader(
             testDs,
             batch_size=batchSz,
-            shuffle=False,
-            num_workers=0,
-            collate_fn=collate_fn
-        )
-    print('train data size: {}, test data size: {}'.format(len(trainLoader.dataset), len(testLoader.dataset)))
+            shuffle=False)
+        #     num_workers=0,
+        #     collate_fn=collate_fn
+        # )
+    print('########## train data size: {}, test data size: {}'.format(len(trainLoader.dataset), len(testLoader.dataset)))
 
     # Create Swarm callback
     swarmCallback = None
@@ -324,13 +324,17 @@ def main():
                                   model_name=model_name,
                                   model=model)
     # initalize swarmCallback and do first sync 
+    print('#### begin on train begin')
     swarmCallback.on_train_begin()
+    print('########## Created Swarm callback ##############')
         
     for epoch in range(1, max_epochs + 1):
-        doTrainBatch(model,device,trainLoader,opt,epoch,swarmCallback)      
+        doTrainBatch(model,device,trainLoader,opt,epoch,swarmCallback)    
+        print('######### finish training epoch {}! ##########'.format(epoch))  
         test(model,device,testLoader)
         swarmCallback.on_epoch_end(epoch)
 
+    
     # handles what to do when training ends        
     swarmCallback.on_train_end()
 
