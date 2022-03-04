@@ -56,8 +56,8 @@ class arguments():
     seed = 0
     device = 'cpu'
     image_time = 'day' # or night
-    parent_path = os.getenv('DATA_DIR', './data/RawData/')
-    annotation_path = os.getenv('DATA_DIR', './data/RawData/Annotations/'+image_time+'Train')   # './RawData/Annotations/nightTrain/'
+    parent_path = os.getenv('DATA_DIR', './data') + '/RawData/'
+    annotation_path = os.getenv('DATA_DIR', './data')+'/RawData/Annotations/'+image_time+'Train'  # './RawData/Annotations/nightTrain/'
 args = arguments
 
 default_max_epochs = args.epochs

@@ -1,0 +1,7 @@
+./fraud-detection-keras/bin/init-workspace -e fraud-detection-keras -i 172.28.217.97 -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
+
+../swarm-learning/bin/run-sl --name node1-sl --network fraud-detection-keras-net --host-ip node1-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.28.217.97 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-fraud-detection-keras/node1/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-fraud-detection-keras/node1/model --model-program fraud-detection.py --sl-platform TF --gpu 0
+
+../swarm-learning/bin/run-sl --name node2-sl --network fraud-detection-keras-net --host-ip node2-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.28.217.97 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-fraud-detection-keras/node2/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-fraud-detection-keras/node2/model --model-program fraud-detection.py --sl-platform TF --gpu 0
+
+sudo ./fraud-detection-keras/bin/del-workspace -e fraud-detection-keras -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
