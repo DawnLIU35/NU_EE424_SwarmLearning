@@ -2,6 +2,7 @@
 .*swp
 **/__pycache__
 swarm-learning/license
-examples/LISA_Traffic_Light/app-data/RawData
-examples/LISA_Traffic_Light2/app-data/RawData
+examples/LISA_Traffic_Light/app-data
+examples/LISA_Traffic_Light2/app-data
 examples/LISA_Traffic_Light3/app-data
+examples/LISA_Traffic_Light4/app-data

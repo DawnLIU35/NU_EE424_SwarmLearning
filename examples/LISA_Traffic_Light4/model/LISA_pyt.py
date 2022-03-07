@@ -33,7 +33,7 @@ trainPrint = True
 # tell swarm after how many batches
 # should it Sync. We are not doing 
 # adaptiveRV here, its a simple and quick demo run
-swSyncInterval = 128 
+swSyncInterval = 32
 
 class ResNet(nn.Module):
     # def __init__(self):
@@ -48,7 +48,7 @@ class ResNet(nn.Module):
     #     return x
     def __init__(self):
         super(ResNet, self).__init__()
-        self.dense = nn.Linear(2352, 512)
+        self.dense = nn.Linear(30000, 512)
         self.dropout = nn.Dropout(0.2)
         self.dense1 = nn.Linear(512, 3)
         
