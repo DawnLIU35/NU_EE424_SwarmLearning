@@ -1,12 +1,16 @@
 ## mnist-pytorch
 
 # Run: Change IP address 
+docker login hub.myenterpriselicense.hpe.com -u liu1103159436@gmail.com -p hpe_eval
+export DOCKER_CONTENT_TRUST=1
+cd /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning
+./swarm-learning/bin/run-apls --apls-port=5814
 
-./mnist-pytorch/bin/init-workspace -e mnist-pytorch -i 172.24.176.48 -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
+./mnist-pytorch/bin/init-workspace -e mnist-pytorch -i 172.18.152.128 -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
 
-../swarm-learning/bin/run-sl --name node1-sl --network mnist-pytorch-net --host-ip node1-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.24.176.48 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
+../swarm-learning/bin/run-sl --name node1-sl --network mnist-pytorch-net --host-ip node1-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.18.152.128 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node1/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
 
-../swarm-learning/bin/run-sl --name node2-sl --network mnist-pytorch-net --host-ip node2-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.28.217.165 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
+../swarm-learning/bin/run-sl --name node2-sl --network mnist-pytorch-net --host-ip node2-sl --sn-ip node-sn -e MAX_EPOCHS=5 --apls-ip 172.18.152.128 --serverAddress node-spire -genJoinToken --data-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/app-data --model-dir /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples/ws-mnist-pytorch/node2/model --model-program mnist_pyt.py --sl-platform PYT --gpu 0
 
 sudo ./mnist-pytorch/bin/del-workspace -e mnist-pytorch -d /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning/examples
 
@@ -15,6 +19,7 @@ sudo ./mnist-pytorch/bin/del-workspace -e mnist-pytorch -d /mnt/d/Northwestern_L
 1. Change swSyncInterval using balance dataset.
 2. Explore imbalance dataset of each nodes using SplitData.ipynb. Assign different weights to each node.
 To create different dataset, change the parameters in SplitData.ipynb, and then run this notebook after running init-workspace.
+3. node1 only has 0-4 training data, node2 only has 5-9 training data.
 
 # Original readme
 

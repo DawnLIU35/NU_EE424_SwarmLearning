@@ -32,7 +32,7 @@ trainPrint = True
 # tell swarm after how many batches
 # should it Sync. We are not doing 
 # adaptiveRV here, its a simple and quick demo run
-swSyncInterval = 32 
+swSyncInterval = 128 
 
 class mnistNet(nn.Module):
     def __init__(self):
