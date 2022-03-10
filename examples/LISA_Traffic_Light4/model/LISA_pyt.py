@@ -26,7 +26,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 import pdb
-default_max_epochs = 5
+default_max_epochs = 30
 default_min_peers = 2
 # maxEpochs = 2
 trainPrint = True
@@ -48,18 +48,42 @@ class ResNet(nn.Module):
     #     return x
     def __init__(self):
         super(ResNet, self).__init__()
-        self.dense = nn.Linear(30000, 512)
-        self.dropout = nn.Dropout(0.2)
-        self.dense1 = nn.Linear(512, 3)
-        
+        self.features = nn.Sequential(
+            nn.Conv2d(in_channels = 3,
+                      out_channels = 64,
+                      kernel_size=3, stride=2, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(64, 192, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2),
+            nn.Conv2d(192, 384, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(384, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2),
+        )
+            
+        #Fully connected layers
+        self.classifier = nn.Sequential(
+            nn.Dropout(),
+            nn.Linear(9216, 2048),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Linear(2048, 1024),
+            nn.ReLU(inplace=True),
+            nn.Linear(1024, 10),
+        )
+
     def forward(self, x):
-        x = torch.flatten(x, 1)        
-        x = self.dense(x)
-        x = F.relu(x)
-        x = self.dropout(x)
-        x = self.dense1(x)
-        output = F.log_softmax(x, dim=1)
-        return output
+        x = self.features(x)
+        #we must flatten our feature maps before feeding into fully connected layers
+        x = x.contiguous().view(x.size(0), -1)
+        x = self.classifier(x)
+        x = F.log_softmax(x, dim=1)
+        return x
         
 def loadData(dataDir):
     # load data from npz format to numpy 
@@ -121,7 +145,7 @@ def main():
     modelDir = os.getenv('MODEL_DIR', './model')
     max_epochs = int(os.getenv('MAX_EPOCHS', str(default_max_epochs)))
     min_peers = int(os.getenv('MIN_PEERS', str(default_min_peers)))
-    batchSz = 128 # this gives 97% accuracy on CPU
+    batchSz = 64 # this gives 97% accuracy on CPU
     trainDs, testDs = loadData(dataDir)
     useCuda = torch.cuda.is_available()
     device = torch.device("cuda" if useCuda else "cpu")  
@@ -137,6 +161,7 @@ def main():
                                   min_peers=min_peers,
                                   val_data=testDs,
                                   val_batch_size=batchSz,
+                                #   use_adaptive_sync = True,
                                   checkin_model_on_train_end = 'active',
                                   model_name=model_name,
                                   model=model)

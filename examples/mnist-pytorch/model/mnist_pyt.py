@@ -25,14 +25,14 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 import pdb
-default_max_epochs = 5
+default_max_epochs = 20
 default_min_peers = 2
 # maxEpochs = 2
 trainPrint = True
 # tell swarm after how many batches
 # should it Sync. We are not doing 
 # adaptiveRV here, its a simple and quick demo run
-swSyncInterval = 128 
+swSyncInterval = 32
 
 class mnistNet(nn.Module):
     def __init__(self):
