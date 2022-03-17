@@ -1,7 +1,7 @@
 ## mnist-pytorch
 
 # Run: Change IP address 
-docker login hub.myenterpriselicense.hpe.com -u liu1103159436@gmail.com -p hpe_eval
+docker login hub.myenterpriselicense.hpe.com -u email -p hpe_eval
 export DOCKER_CONTENT_TRUST=1
 cd /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning
 ./swarm-learning/bin/run-apls --apls-port=5814
