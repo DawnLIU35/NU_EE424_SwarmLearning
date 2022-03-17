@@ -1,7 +1,7 @@
 Project of EE424 distributed optimization.
 Use LISA Traffic Light dataset. https://www.kaggle.com/mbornoe/lisa-traffic-light-dataset
 
-docker login hub.myenterpriselicense.hpe.com -u <email> -p hpe_eval  
+docker login hub.myenterpriselicense.hpe.com -u email -p hpe_eval  
 export DOCKER_CONTENT_TRUST=1  
 cd /mnt/d/Northwestern_Local/22Winter/EE424_DistributedOptimization/NU_EE424_SwarmLearning  
 ./swarm-learning/bin/run-apls --apls-port=5814  
